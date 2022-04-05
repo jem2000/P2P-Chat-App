@@ -71,14 +71,13 @@ the message """
 
 def broadcast(message, connection):
     for clients in list_of_clients:
-        if clients != connection:
-            try:
-                clients.send(message.encode())
-            except Exception:
-                clients.close()
+        try:
+            clients.send(message.encode())
+        except Exception:
+            clients.close()
 
-                # if the link is broken, we remove the client
-                remove(clients)
+            # if the link is broken, we remove the client
+            remove(clients)
 
 
 """The following function simply removes the object
