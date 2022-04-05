@@ -3,6 +3,10 @@ import socket
 import select
 import sys
 
+isWindows = sys.platform.startswith('win')
+if isWindows:
+    import msvcrt
+
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 if len(sys.argv) != 3:
     print("Correct usage: script, IP address, port number")
@@ -24,8 +28,14 @@ while True:
     to send a message, then the if condition will hold true
     below.If the user wants to send a message, the else
     condition will evaluate as true"""
-    read_sockets, write_socket, error_socket = \
-        select.select(sockets_list, [], [])
+    
+    # Get the list sockets which are readable, time-out after 1 s
+    if isWindows:
+        read_sockets = select.select([server], [], [], 1)[0]
+        if msvcrt.kbhit():
+            read_sockets.append(sys.stdin)
+    else:
+        read_sockets, write_socket, error_socket = select.select(sockets_list, [], [])
 
     for socks in read_sockets:
         if socks == server:
