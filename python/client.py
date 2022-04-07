@@ -22,20 +22,20 @@ def decrypt_message(fernet_suite, msg):
 args = login.login()
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-if len(sys.argv) != 3:
-    print("Correct usage: script, IP address, port number, key")
-    exit()
-IP_address = str(sys.argv[1])
-Port = int(sys.argv[2])
+# if len(sys.argv) != 3:
+    # print("Correct usage: script, IP address, port number, key")
+    # exit()
+# IP_address = str(sys.argv[1])
+# Port = int(sys.argv[2])
 # key = sys.argv[3].encode()
 # suite = Fernet(key)
-
-# IP_address = str(args[0])
-# Port = int(args[1])
-# key = args[2].encode()
+# 
+IP_address = str(args[0])
+Port = int(args[1])
+key = args[2].encode()
 # suite = Fernet(key)
 
 server.connect((IP_address, Port))
 
-chatroom = messages.Chatroom(server)
+chatroom = messages.Chatroom(server, key)
 chatroom.wait()

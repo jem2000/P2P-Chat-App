@@ -6,16 +6,23 @@ import socket
 import select
 import sys
 from queue import Queue
+from cryptography.fernet import Fernet
 
+def encrypt_message(fernet_suite, msg):
+    return fernet_suite.encrypt(msg)
+
+def decrypt_message(fernet_suite, msg):
+    return fernet_suite.decrypt(msg).decode().strip()
 
 class Chatroom:
-    def __init__(self, server):
+    def __init__(self, server, key):
 
         self.values = None
         self.event = None
         self.window = None
         self.server = server
         self.receiveQueue = Queue()
+        self.suite = Fernet(key)
         # maintains a list of possible input streams
         self.read_sockets = [self.server]
         server_thread = Thread(target=self.read_from_server)
@@ -69,8 +76,13 @@ class Chatroom:
             for sock in ready:
                 if sock == self.server:
                     message = sock.recv(2048)
-                    print("From Server: ", message)
-                    self.receiveQueue.put(message)
+                    encrypted = message.decode().split(" ")[1]
+                    try:
+                        decrypted = decrypt_message(self.suite, encrypted.encode())
+                    except Exception:
+                        decrypted = encrypted
+                    print("From Server: ", decrypted)
+                    self.receiveQueue.put(decrypted)
         # try:
         #     encrypted = message.decode().split(" ")[1]
         #     print("Encrypted:", encrypted.encode())
@@ -88,7 +100,7 @@ class Chatroom:
         # self.server.close()
 
     def write_to_server(self, msg):
-        self.server.send(msg.encode())
+        self.server.send(encrypt_message(self.suite, msg.encode()))
         # server.send(encrypt_message(suite, message.encode()))
         sys.stdout.write("<You>")
         sys.stdout.write(msg)
