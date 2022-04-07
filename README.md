@@ -1,8 +1,6 @@
 # P2P-Chat-App
 This is the P2P chat app for Joe and Justin. Built for the EC530 hackathon.
 
-![chat](https://github.com/jem2000/P2P-Chat-App/blob/main/Images/chatroom_screenshot.png)
-
 There are two folders, the `ChatApp/` was a failed attempt at building a P2P
 app using react-native and expo. It turns out that there are not many
 cross-platform socket libraries that work well across web, android, and iOS
@@ -33,3 +31,10 @@ connected clients.
 
 The server is in `python/server.py` and the client in `python/client.py`.
 
+### Using the App
+
+Once the server is running, run the client to bring up the connection page.
+![login](https://github.com/jem2000/P2P-Chat-App/blob/main/Images/login_screen.png)
+Here, you will need to enter the server IP address, port, and encryption key. The key is generated using the Python Fernet library. Clicking open chatroom will then bring you to the chat page, where you can send your messages
+![chat](https://github.com/jem2000/P2P-Chat-App/blob/main/Images/chatroom_screenshot.png)
+Here you can send messages and view messages you have sent and received since opening the chatroom. Messages are not saved in a database and can only be viewed on this screen. 
