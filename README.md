@@ -1,7 +1,7 @@
 # P2P-Chat-App
 This is the P2P chat app for Joe and Justin. Built for the EC530 hackathon.
 
-![chat]https://github.com/jem2000/P2P-Chat-App/blob/main/Images/chatroom_screenshot.png
+![chat](https://github.com/jem2000/P2P-Chat-App/blob/main/Images/chatroom_screenshot.png)
 
 There are two folders, the `ChatApp/` was a failed attempt at building a P2P
 app using react-native and expo. It turns out that there are not many
