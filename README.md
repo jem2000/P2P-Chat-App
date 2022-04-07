@@ -34,7 +34,11 @@ The server is in `python/server.py` and the client in `python/client.py`.
 ### Using the App
 
 Once the server is running, run the client to bring up the connection page.
+
 ![login](https://github.com/jem2000/P2P-Chat-App/blob/main/Images/login_screen.png)
+
 Here, you will need to enter the server IP address, port, and encryption key. The key is generated using the Python Fernet library. Clicking open chatroom will then bring you to the chat page, where you can send your messages
+
 ![chat](https://github.com/jem2000/P2P-Chat-App/blob/main/Images/chatroom_screenshot.png)
+
 Here you can send messages and view messages you have sent and received since opening the chatroom. Messages are not saved in a database and can only be viewed on this screen. 
