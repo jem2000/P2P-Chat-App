@@ -38,3 +38,4 @@ Port = int(sys.argv[2])
 server.connect((IP_address, Port))
 
 chatroom = messages.Chatroom(server)
+chatroom.wait()
